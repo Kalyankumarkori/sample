@@ -1,0 +1,34 @@
+ name: Spark CI/CD
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Java and Spark
+        uses: actions/setup-java@v2
+        with:
+          java-version: 11
+
+      - name: Build Spark App
+        run: |
+          cd custom_folder
+          # Assuming you have a build script or command
+          # Example: ./build.sh
+
+      - name: Deploy to ArgoCD
+        uses: argoproj/argo-cd@v2
+        with:
+          command: app create
+          args: 'your-app-name --repo https://github.com/yourusername/your-repo.git --path custom_folder --dest-namespace your-namespace'
+        env:
+          ARGOCD_SERVER: 'your-argocd-server-url'
+          ARGOCD_TOKEN: ${{ secrets.ARGOCD_TOKEN }}
