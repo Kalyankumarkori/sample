@@ -15,5 +15,8 @@ jobs:
 
       - name: Deploy to ArgoCD
         run: |
-          cd custom-folder  # Navigate to the custom folder
+          git clone https://github.com/Kalyankumarkori/sample.git --depth 1
+          cd sample
+          git checkout main  # Make sure to checkout the desired branch
+          cd custom_folder   # Navigate to the custom folder
           # Perform any deployment actions needed for this folder
