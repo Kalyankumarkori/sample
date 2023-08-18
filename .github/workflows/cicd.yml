@@ -16,7 +16,7 @@
       - name: Build and Deploy
         run: |
           # Add build or processing steps here if needed
-          echo "Build and processing steps"
+          # echo "Build and processing steps"
 
           # Deploy to ArgoCD
           argocd login localhost:8080 --username admin --password YMBhHfLWGYJvBsDD --insecure
