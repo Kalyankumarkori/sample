@@ -3,30 +3,29 @@ name: Deploy to ArgoCD
 on:
   push:
     branches:
-      - main  # Adjust this branch as needed
+      - main
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Debug Kubeconfig Secret
+        run: |
+          echo "KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}"
+          echo "Decoded Kubeconfig Content:"
+          echo "${{ secrets.KUBE_CONFIG_DATA }}"
+
       - name: Checkout Repository
         uses: actions/checkout@v2
 
       - name: Set up kubectl
         uses: azure/setup-kubectl@v1
         with:
-          kubeconfig: ${{ secrets.KUBE_CONFIG_DATA }}  # Provide your Kubernetes config data as a secret
+          kubeconfig: ${{ secrets.KUBE_CONFIG_DATA }}
 
       - name: Deploy to ArgoCD
         run: |
-          # Clone the repository with the custom folder
           git clone https://github.com/Kalyankumarkori/sample.git --depth 1
           cd sample
-
-          # Deploy using kubectl or ArgoCD CLI, depending on your setup
-          # Replace these commands with the appropriate deployment steps for your project
-          kubectl apply -f custom-folder/  # Adjust this to your actual deployment command
-
-
-
+          kubectl apply -f custom-folder/
