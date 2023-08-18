@@ -19,13 +19,7 @@ jobs:
           echo "Build and processing steps"
 
           # Deploy to ArgoCD
-           # Logging into ArgoCD
- 
-# Logging into ArgoCD
-argocd login localhost:8080 --username admin --password YMBhHfLWGYJvBsDD --insecure
+          argocd login localhost:8080 --username admin --password YMBhHfLWGYJvBsDD --insecure
+          argocd app set SPARK-APP -p default --sync-policy auto
+          argocd app sync SPARK-APP
 
-# Setting sync policy for the application
-argocd app set SPARK-APP -p default --sync-policy auto
-
-# Triggering synchronization of the application
-argocd app sync SPARK-APP
