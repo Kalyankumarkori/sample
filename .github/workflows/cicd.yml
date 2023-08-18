@@ -10,22 +10,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Debug Kubeconfig Secret
-        run: |
-          echo "KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}"
-          echo "Decoded Kubeconfig Content:"
-          echo "${{ secrets.KUBE_CONFIG_DATA }}"
-
       - name: Checkout Repository
         uses: actions/checkout@v2
 
-      - name: Set up kubectl
-        uses: azure/setup-kubectl@v1
-        with:
-          kubeconfig: ${{ secrets.KUBE_CONFIG_DATA }}
-
       - name: Deploy to ArgoCD
         run: |
-          git clone https://github.com/Kalyankumarkori/sample.git --depth 1
-          cd sample
-          kubectl apply -f custom-folder/
+          cd custom-folder  # Navigate to the custom folder
+          # Perform any deployment actions needed for this folder
