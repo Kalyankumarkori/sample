@@ -1,0 +1,31 @@
+ name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Build and Deploy
+        run: |
+          # Add build or processing steps here if needed
+          echo "Build and processing steps"
+
+          # Deploy to ArgoCD
+           # Logging into ArgoCD
+ 
+# Logging into ArgoCD
+argocd login localhost:8080 --username admin --password YMBhHfLWGYJvBsDD --insecure
+
+# Setting sync policy for the application
+argocd app set SPARK-APP -p default --sync-policy auto
+
+# Triggering synchronization of the application
+argocd app sync SPARK-APP
